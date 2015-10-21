@@ -19,13 +19,14 @@
 #define NUM_COLUMNS 8
 #define NUM_ROWS 6
 
-int columnWidth, rowHeight;
+int columnWidth, rowHeight, columnEnd;
 
 void setup() {
   Serial.begin(SERIAL_BAUD_RATE);
   EsploraTFT.begin();
   EsploraTFT.background(0, 0, 0);
   columnWidth = EsploraTFT.width() / NUM_COLUMNS;
+  columnEnd = EsploraTFT.height() - 2;
   rowHeight = EsploraTFT.height() / NUM_ROWS;
   delay(1000);
   Serial.println("EsploraTFT.width(): " + String(EsploraTFT.width()) + " EsploraTFT.height(): " + String(EsploraTFT.height()));
@@ -43,7 +44,6 @@ void setup() {
  */
 void drawColumns() {
   String xStarts = "";
-  int columnEnd = EsploraTFT.height() - 2;
   EsploraTFT.line(0, 0, 0, columnEnd);
   for (int i = columnWidth - 1; i <= EsploraTFT.width(); i += columnWidth) {
     xStarts += String(i) + " ";
