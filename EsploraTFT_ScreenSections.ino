@@ -25,6 +25,28 @@ void setup() {
   Serial.begin(SERIAL_BAUD_RATE);
   EsploraTFT.begin();
   EsploraTFT.background(0, 0, 0);
+  columnWidth = EsploraTFT.width() / NUM_COLUMNS;
+  rowHeight = EsploraTFT.height() / NUM_ROWS;
+  delay(500);
+  Serial.println("width: " + String(EsploraTFT.width()) + " height: " + String(EsploraTFT.height()));
+  drawColumns();
+}
+
+/*
+ * Stroke: EsploraTFT.stroke(red, green, blue);
+ * Fill: EsploraTFT.fill(red, green, blue);
+ * Lines: EsploraTFT.line(xStart, yStart, xEnd, yEnd);
+ * Rect: EsploraTFT.rect(xStart, yStart, width, height);
+ */
+void drawColumns() {
+  String xStarts = "";
+  EsploraTFT.stroke(255, 255, 255);
+  EsploraTFT.line(0, 0, 0, EsploraTFT.height());
+  for (int i = columnWidth-1; i <= EsploraTFT.width(); i+=columnWidth) {
+    xStarts += String(i) + " ";
+    EsploraTFT.line(i, 0, i, EsploraTFT.height());
+  }
+  Serial.println("Column xStarts: " + xStarts);
 }
 
 void loop() {
