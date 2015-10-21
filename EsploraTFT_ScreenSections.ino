@@ -27,9 +27,12 @@ void setup() {
   EsploraTFT.background(0, 0, 0);
   columnWidth = EsploraTFT.width() / NUM_COLUMNS;
   rowHeight = EsploraTFT.height() / NUM_ROWS;
-  delay(500);
-  Serial.println("width: " + String(EsploraTFT.width()) + " height: " + String(EsploraTFT.height()));
+  delay(1000);
+  Serial.println("EsploraTFT.width(): " + String(EsploraTFT.width()) + " EsploraTFT.height(): " + String(EsploraTFT.height()));
+  Serial.println("columnWidth: " + String(columnWidth) + " rowHeight: " + String(rowHeight));
+  EsploraTFT.stroke(255, 255, 255);
   drawColumns();
+  drawRows();
 }
 
 /*
@@ -40,13 +43,23 @@ void setup() {
  */
 void drawColumns() {
   String xStarts = "";
-  EsploraTFT.stroke(255, 255, 255);
-  EsploraTFT.line(0, 0, 0, EsploraTFT.height());
-  for (int i = columnWidth-1; i <= EsploraTFT.width(); i+=columnWidth) {
+  int columnEnd = EsploraTFT.height() - 2;
+  EsploraTFT.line(0, 0, 0, columnEnd);
+  for (int i = columnWidth - 1; i <= EsploraTFT.width(); i += columnWidth) {
     xStarts += String(i) + " ";
-    EsploraTFT.line(i, 0, i, EsploraTFT.height());
+    EsploraTFT.line(i, 0, i, columnEnd);
   }
   Serial.println("Column xStarts: " + xStarts);
+}
+
+void drawRows() {
+  String yStarts = "";
+  EsploraTFT.line(0, 0, EsploraTFT.width(), 0);
+  for (int i = rowHeight - 1; i <= EsploraTFT.height(); i += rowHeight) {
+    yStarts += String(i) + " ";
+    EsploraTFT.line(0, i, EsploraTFT.width(), i);
+  }
+  Serial.println("Column yStarts: " + yStarts);
 }
 
 void loop() {
